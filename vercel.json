@@ -1,4 +1,3 @@
 {
-    "version": 2,
-    "route": [{"src": "/(.*)", "dest": "/alldata"}]
+    "version": 2
 }
