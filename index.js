@@ -27,6 +27,7 @@ const oauth = OAuth({
 app.post('/shopify/order', async (req, res) => {
   var orderData = req.body;
   console.log(orderData);
+  orderData = orderData.first_name;
   var request_data = {
     url: `https://td3025443.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=10323&deploy=1`,
     method: 'POST',
