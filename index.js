@@ -11,10 +11,10 @@ app.get('/alldata', (req, res) => {
   console.log('GET:', req.query);
   res.send('Data received');
 });
-const CONSUMER_KEY = '4a85783fbc881bb4ba17cdb55b40cc928478cc20a40ff8d9d679030ea705dbf5';
-const CONSUMER_SECRET = 'be3b8a61692fce1273388427338dc138f6f0cf2b529a01e0924ae8927bad6b01';
-const TOKEN_ID = 'd70097b4ef495ab04860691990139d0a32223b2fdd2315bc9c8d82d0c446aa71';
-const TOKEN_SECRET = '9412c4121bf8238565630c04f698eb36eac97cb0d7ce95b5cc6ed1ad1686fa6e';
+const CONSUMER_KEY = '81bf0664dcc848e99285d09aab5fb205a17774d1ee3db0779e70d99857cbe635';
+const CONSUMER_SECRET = '31e862e169c97416be94cabc26b53d99f339c1072fdeff2c30829c0c9b04fc80';
+const TOKEN_ID = '94f1e1dbeb6500320282b9a464c6da2d6ca113ee74fc2772bb4c7801ebd593bf';
+const TOKEN_SECRET = '1d43ed4fd4440a5865a7c1c4fd87ad24b8f6e5ebdfce2a71d48f35467fdf82a7';
 const ACCOUNT_ID = 'TD3025443';
 const oauth = OAuth({
   consumer: { key: CONSUMER_KEY, secret: CONSUMER_SECRET },
