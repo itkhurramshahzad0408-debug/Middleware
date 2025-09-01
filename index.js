@@ -119,7 +119,7 @@ app.post('/api/testLink1', async (req, res) => {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
-        'X-IBM-Client-Id': CLIENT_ID
+        'X-IBM-Client-Id': '361dd796eddf6a5ba9b3295409e2b10e'
       }
     });
 
