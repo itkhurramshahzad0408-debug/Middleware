@@ -113,9 +113,10 @@ app.post('/api/testLink1', async (req, res) => {
         merchantID: "70425271300379",
         subDept: "0001"
     };
+    var payload = '{\"info\": {\"stan\": \"123456\",\"rtpId\": \"2204031378259968\",\"merchantID\": \"70425271300379\",\"subDept\": \"0001\"}}';
     console.log('link payload', oneLinkPayload)
     // ✅ Step 4: Call 1LINK IBFT API
-    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', oneLinkPayload, {
+    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', payload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
