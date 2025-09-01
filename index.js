@@ -80,7 +80,7 @@ app.use(bodyParser.json());
 const CLIENT_ID = '361dd796eddf6a5ba9b3295409e2b10e';
 const CLIENT_SECRET = 'fe4c4d977afce1285ae7e1537836116c';
 const TOKEN_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/oauth2/token';
-const IBFT_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry';
+const RASST_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry';
 
 // ✅ Step 1: API endpoint for NetSuite
 app.post('/api/testLink1', async (req, res) => {
@@ -110,15 +110,15 @@ app.post('/api/testLink1', async (req, res) => {
 
     // ✅ Step 3: Prepare 1LINK IBFT / Raast API payload
     const oneLinkPayload = {
-      transactionId: 'TXN-' + Date.now(),
-      amount: amount || 1000,
-      beneficiaryAccount: 'PK36HABB0000000000006301', // Test IBAN
-      beneficiaryBank: 'HABBPKKA',
-      description: message || 'Payment from NetSuite'
+      info: {
+        stan: generateStan(),
+        rtpId: "2204031378259968",
+        merchantID: "70425271300379",
+        subDept: "0001"
+      }
     };
-
     // ✅ Step 4: Call 1LINK IBFT API
-    const ibftResponse = await axios.post(IBFT_URL, oneLinkPayload, {
+    const ibftResponse = await axios.post(RASST_URL, oneLinkPayload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
