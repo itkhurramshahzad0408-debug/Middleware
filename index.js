@@ -72,6 +72,7 @@
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const qs = require('qs');
 
 const app = express();
 app.use(bodyParser.json());
@@ -91,17 +92,14 @@ app.post('/api/testLink1', async (req, res) => {
     const { recordId, amount, message } = req.body;
 
     // ✅ Step 2: Get OAuth token
-    const tokenResponse = await axios.post(TOKEN_URL, null, {
-      auth: {
-        username: CLIENT_ID,
-        password: CLIENT_SECRET
-      },
+    const tokenResponse = await axios.post(TOKEN_URL, qs.stringify({
+      grant_type: 'client_credentials',
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      scope: '1LinkApi'
+    }), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      params: {
-        grant_type: 'client_credentials',
-        scope: '1LinkApi'
       }
     });
 
