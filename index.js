@@ -89,7 +89,7 @@ app.post('/api/testLink1', async (req, res) => {
     console.log('Request from NetSuite:', req.body);
 
     // Extract payload from NetSuite
-    const { recordId, amount, message } = req.body;
+    // const { recordId, amount, message } = req.body;
 
     // ✅ Step 2: Get OAuth token
     const tokenResponse = await axios.post(TOKEN_URL, qs.stringify({
