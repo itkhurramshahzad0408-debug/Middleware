@@ -108,12 +108,10 @@ app.post('/api/testLink1', async (req, res) => {
 
     // ✅ Step 3: Prepare 1LINK IBFT / Raast API payload
     const oneLinkPayload = {
-      info: {
         stan: "123456",
         rtpId: "2204031378259968",
         merchantID: "70425271300379",
         subDept: "0001"
-      }
     };
     console.log('link payload', oneLinkPayload)
     // ✅ Step 4: Call 1LINK IBFT API
@@ -124,6 +122,7 @@ app.post('/api/testLink1', async (req, res) => {
       }
     });
 
+    console.log('1LINK Response headers:', ibftResponse.headers);
     console.log('1LINK Response:', ibftResponse.data);
 
     // ✅ Step 5: Send response back to NetSuite
