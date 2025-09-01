@@ -118,7 +118,8 @@ app.post('/api/testLink1', async (req, res) => {
     const ibftResponse = await axios.post(RASST_URL, oneLinkPayload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-IBM-Client-Id': CLIENT_ID
       }
     });
 
