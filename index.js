@@ -77,10 +77,10 @@ const app = express();
 app.use(bodyParser.json());
 
 // Replace with actual 1LINK credentials
-const CLIENT_ID = 'your-client-id';
-const CLIENT_SECRET = 'your-client-secret';
-const TOKEN_URL = 'https://sandbox.1link.net.pk/oauth/token';
-const IBFT_URL = 'https://sandbox.1link.net.pk/api/ibft'; // Example
+const CLIENT_ID = '361dd796eddf6a5ba9b3295409e2b10e';
+const CLIENT_SECRET = 'fe4c4d977afce1285ae7e1537836116c';
+const TOKEN_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/oauth2/token';
+const IBFT_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry';
 
 // ✅ Step 1: API endpoint for NetSuite
 app.post('/api/testLink1', async (req, res) => {
@@ -148,3 +148,5 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Middleware running on http://localhost:${PORT}`);
 });
+
+module.exports = app;
