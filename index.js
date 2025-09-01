@@ -100,7 +100,8 @@ app.post('/api/testLink1', async (req, res) => {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       params: {
-        grant_type: 'client_credentials'
+        grant_type: 'client_credentials',
+        scope: '1LinkApi'
       }
     });
 
