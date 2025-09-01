@@ -109,7 +109,7 @@ app.post('/api/testLink1', async (req, res) => {
     // ✅ Step 3: Prepare 1LINK IBFT / Raast API payload
     const oneLinkPayload = {
       info: {
-        stan: generateStan(),
+        stan: "123456",
         rtpId: "2204031378259968",
         merchantID: "70425271300379",
         subDept: "0001"
