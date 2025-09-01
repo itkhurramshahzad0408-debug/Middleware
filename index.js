@@ -1,65 +1,150 @@
+// For Shopify 
 // server.js
+// const express = require('express');
+// const axios = require('axios');
+// const OAuth = require('oauth-1.0a');
+// const crypto = require('crypto');
+
+// const app = express();
+// app.use(express.json());
+
+// app.get('/alldata', (req, res) => {
+//   console.log('GET:', req.query);
+//   res.send('Data received');
+// });
+// const CONSUMER_KEY = '81bf0664dcc848e99285d09aab5fb205a17774d1ee3db0779e70d99857cbe635';
+// const CONSUMER_SECRET = '31e862e169c97416be94cabc26b53d99f339c1072fdeff2c30829c0c9b04fc80';
+// const TOKEN_ID = '94f1e1dbeb6500320282b9a464c6da2d6ca113ee74fc2772bb4c7801ebd593bf';
+// const TOKEN_SECRET = '1d43ed4fd4440a5865a7c1c4fd87ad24b8f6e5ebdfce2a71d48f35467fdf82a7';
+// const ACCOUNT_ID = 'TD3025443';
+// const oauth = OAuth({
+//   consumer: { key: CONSUMER_KEY, secret: CONSUMER_SECRET },
+//   signature_method: 'HMAC-SHA256',
+//   hash_function(base_string, key) {
+//     return crypto.createHmac('sha256', key).update(base_string).digest('base64');
+//   }
+// });
+
+// app.post('/shopify/order', async (req, res) => {
+//   var orderData = req.body;
+//   console.log("orderData", orderData);
+//   var request_data = {
+//     url: `https://td3025443.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=10323&deploy=1`,
+//     method: 'POST',
+//   };
+
+//   const token = {
+//     key: TOKEN_ID,
+//     secret: TOKEN_SECRET
+//   };
+
+//   const oauthHeader = oauth.toHeader(oauth.authorize(request_data, token));
+
+//   const headers = {
+//     Authorization: `${oauthHeader.Authorization}, realm="${ACCOUNT_ID}"`,
+//     'Content-Type': 'application/json'
+//   };
+//   try {
+//     const response = await axios.post(request_data.url, orderData, { headers });
+//     res.status(200).send({ success: true, netsuite: response.data });
+//   } catch (error) {
+//     console.error('NetSuite error:', error.message);
+//     if (error.response) {
+//       console.error('Status:', error.response.status);
+//       console.error('Data:', error.response.data);
+//     }
+//     res.status(500).send({ error: 'Failed to sync with NetSuite' });
+//   }
+// });
+
+// app.listen(3000, () => {
+//   console.log('Middleware running on port 3000');
+// });
+
+// module.exports = app;
+
+// End Shopify 
+
+
+
+
+// Start For 1Link
 const express = require('express');
 const axios = require('axios');
-const OAuth = require('oauth-1.0a');
-const crypto = require('crypto');
+const bodyParser = require('body-parser');
 
 const app = express();
-app.use(express.json());
+app.use(bodyParser.json());
 
-app.get('/alldata', (req, res) => {
-  console.log('GET:', req.query);
-  res.send('Data received');
-});
-const CONSUMER_KEY = '81bf0664dcc848e99285d09aab5fb205a17774d1ee3db0779e70d99857cbe635';
-const CONSUMER_SECRET = '31e862e169c97416be94cabc26b53d99f339c1072fdeff2c30829c0c9b04fc80';
-const TOKEN_ID = '94f1e1dbeb6500320282b9a464c6da2d6ca113ee74fc2772bb4c7801ebd593bf';
-const TOKEN_SECRET = '1d43ed4fd4440a5865a7c1c4fd87ad24b8f6e5ebdfce2a71d48f35467fdf82a7';
-const ACCOUNT_ID = 'TD3025443';
-const oauth = OAuth({
-  consumer: { key: CONSUMER_KEY, secret: CONSUMER_SECRET },
-  signature_method: 'HMAC-SHA256',
-  hash_function(base_string, key) {
-    return crypto.createHmac('sha256', key).update(base_string).digest('base64');
-  }
-});
+// Replace with actual 1LINK credentials
+const CLIENT_ID = 'your-client-id';
+const CLIENT_SECRET = 'your-client-secret';
+const TOKEN_URL = 'https://sandbox.1link.net.pk/oauth/token';
+const IBFT_URL = 'https://sandbox.1link.net.pk/api/ibft'; // Example
 
-app.post('/shopify/order', async (req, res) => {
-  var orderData = req.body;
-  console.log("orderData" , orderData);
-  var request_data = {
-    url: `https://td3025443.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=10323&deploy=1`,
-    method: 'POST',
-  };
-
-  const token = {
-    key: TOKEN_ID,
-    secret: TOKEN_SECRET
-  };
-
-  const oauthHeader = oauth.toHeader(oauth.authorize(request_data, token));
-
-  const headers = {
-    Authorization: `${oauthHeader.Authorization}, realm="${ACCOUNT_ID}"`,
-    'Content-Type': 'application/json'
-  };
+// ✅ Step 1: API endpoint for NetSuite
+app.post('/api/testLink1', async (req, res) => {
   try {
-    const response = await axios.post(request_data.url, orderData, { headers });
-    res.status(200).send({ success: true, netsuite: response.data });
+    console.log('Request from NetSuite:', req.body);
+
+    // Extract payload from NetSuite
+    const { recordId, amount, message } = req.body;
+
+    // ✅ Step 2: Get OAuth token
+    const tokenResponse = await axios.post(TOKEN_URL, null, {
+      auth: {
+        username: CLIENT_ID,
+        password: CLIENT_SECRET
+      },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      params: {
+        grant_type: 'client_credentials'
+      }
+    });
+
+    const accessToken = tokenResponse.data.access_token;
+    console.log('Access Token:', accessToken);
+
+    // ✅ Step 3: Prepare 1LINK IBFT / Raast API payload
+    const oneLinkPayload = {
+      transactionId: 'TXN-' + Date.now(),
+      amount: amount || 1000,
+      beneficiaryAccount: 'PK36HABB0000000000006301', // Test IBAN
+      beneficiaryBank: 'HABBPKKA',
+      description: message || 'Payment from NetSuite'
+    };
+
+    // ✅ Step 4: Call 1LINK IBFT API
+    const ibftResponse = await axios.post(IBFT_URL, oneLinkPayload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log('1LINK Response:', ibftResponse.data);
+
+    // ✅ Step 5: Send response back to NetSuite
+    res.json({
+      status: 'SUCCESS',
+      recordId: recordId,
+      oneLinkResponse: ibftResponse.data
+    });
+
   } catch (error) {
-    console.error('NetSuite error:', error.message);
-    if (error.response) {
-      console.error('Status:', error.response.status);
-      console.error('Data:', error.response.data);
-    }
-    res.status(500).send({ error: 'Failed to sync with NetSuite' });
+    console.error('Error in middleware:', error.response ? error.response.data : error.message);
+    res.status(500).json({
+      status: 'FAILED',
+      message: error.message,
+      details: error.response ? error.response.data : null
+    });
   }
 });
 
-app.listen(3000, () => {
-  console.log('Middleware running on port 3000');
+// ✅ Start server
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Middleware running on http://localhost:${PORT}`);
 });
-
-
-
-module.exports = app;
