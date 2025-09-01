@@ -81,10 +81,10 @@ app.use(bodyParser.json());
 const CLIENT_ID = '361dd796eddf6a5ba9b3295409e2b10e';
 const CLIENT_SECRET = 'fe4c4d977afce1285ae7e1537836116c';
 const TOKEN_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/oauth2/token';
-const RASST_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry';
+const RASST_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link';
 
 // ✅ Step 1: API endpoint for NetSuite
-app.post('/api/testLink1', async (req, res) => {
+app.post('/statusInquiry', async (req, res) => {
   try {
     console.log('Request from NetSuite:', req.body);
 
@@ -115,7 +115,7 @@ app.post('/api/testLink1', async (req, res) => {
     };
     console.log('link payload', oneLinkPayload)
     // ✅ Step 4: Call 1LINK IBFT API
-    const ibftResponse = await axios.post(RASST_URL, oneLinkPayload, {
+    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', oneLinkPayload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
