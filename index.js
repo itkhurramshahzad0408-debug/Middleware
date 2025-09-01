@@ -115,6 +115,7 @@ app.post('/api/testLink1', async (req, res) => {
         subDept: "0001"
       }
     };
+    console.log('link payload', oneLinkPayload)
     // ✅ Step 4: Call 1LINK IBFT API
     const ibftResponse = await axios.post(RASST_URL, oneLinkPayload, {
       headers: {
