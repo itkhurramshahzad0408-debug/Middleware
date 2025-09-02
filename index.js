@@ -109,8 +109,9 @@ app.post('/api/testLink1', async (req, res) => {
     // Step 3: Prepare 1LINK IBFT / Raast API payload
     const oneLinkPayload = req.body;
 
+    console.log('khurram', 'khurram');
     console.log('link payload', oneLinkPayload);
-    console.log('khurram')
+    console.log('khurram', 'khurram');
     // Step 4: Call 1LINK IBFT API
     const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', oneLinkPayload, {
       headers: {
