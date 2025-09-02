@@ -127,7 +127,6 @@ debugger;
     // Step 5: Send response back to NetSuite
     res.json({
       status: 'SUCCESS',
-      // recordId: recordId,
       oneLinkResponse: ibftResponse.data
     });
 
