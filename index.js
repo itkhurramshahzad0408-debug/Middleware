@@ -83,7 +83,7 @@ const CLIENT_SECRET = 'fe4c4d977afce1285ae7e1537836116c';
 const TOKEN_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/oauth2/token';
 const RASST_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link';
 
-// ✅ Step 1: API endpoint for NetSuite
+// Step 1: API endpoint for NetSuite
 app.post('/api/testLink1', async (req, res) => {
   try {
     console.log('Request from NetSuite:', req.body);
@@ -91,7 +91,7 @@ app.post('/api/testLink1', async (req, res) => {
     // Extract payload from NetSuite
     // const { recordId, amount, message } = req.body;
 
-    // ✅ Step 2: Get OAuth token
+    // Step 2: Get OAuth token
     const tokenResponse = await axios.post(TOKEN_URL, qs.stringify({
       grant_type: 'client_credentials',
       client_id: CLIENT_ID,
@@ -106,7 +106,7 @@ app.post('/api/testLink1', async (req, res) => {
     const accessToken = tokenResponse.data.access_token;
     console.log('Access Token:', accessToken);
 
-    // ✅ Step 3: Prepare 1LINK IBFT / Raast API payload
+    // Step 3: Prepare 1LINK IBFT / Raast API payload
     const oneLinkPayload = {
       info: {
         stan: "123456",
@@ -117,29 +117,19 @@ app.post('/api/testLink1', async (req, res) => {
     };
 
     console.log('link payload', oneLinkPayload);
-
-    const ibftResponse = await axios.post(
-      'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry',
-      oneLinkPayload,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-          'X-IBM-Client-Id': '361dd796eddf6a5ba9b3295409e2b10e',
-          'Accept': '*/*',
-          'Accept-Encoding': 'gzip, deflate, br',
-          'Connection': 'keep-alive',
-          'User-Agent': 'PostmanRuntime/7.45.0'
-          // 'Cookie': '_cf_bm=rXX7dYq6.9qPAQJBmFYETvuSDH3CYzZJjFcQwOuH1i...' // Optional
-        }
+    // Step 4: Call 1LINK IBFT API
+    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', oneLinkPayload, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        // 'Content-Type': 'application/json',
+        'X-IBM-Client-Id': '361dd796eddf6a5ba9b3295409e2b10e'
       }
-    );
-
+    });
 
     console.log('1LINK Response headers:', ibftResponse.headers);
     console.log('1LINK Response:', ibftResponse.data);
 
-    // ✅ Step 5: Send response back to NetSuite
+    // Step 5: Send response back to NetSuite
     res.json({
       status: 'SUCCESS',
       recordId: recordId,
@@ -156,7 +146,7 @@ app.post('/api/testLink1', async (req, res) => {
   }
 });
 
-// ✅ Start server
+// Start server
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Middleware running on http://localhost:${PORT}`);
