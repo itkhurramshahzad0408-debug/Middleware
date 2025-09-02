@@ -107,14 +107,7 @@ app.post('/api/testLink1', async (req, res) => {
     console.log('Access Token:', accessToken);
 
     // Step 3: Prepare 1LINK IBFT / Raast API payload
-    let oneLinkPayload = {
-      info: {
-        stan: "123456",
-        rtpId: "2204031378259968",
-        merchantID: "70425271300379",
-        subDept: "0001"
-      }
-    };
+    const oneLinkPayload = req.body;
 
     console.log('link payload', oneLinkPayload);
     // Step 4: Call 1LINK IBFT API
