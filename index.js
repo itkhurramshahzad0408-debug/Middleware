@@ -116,15 +116,25 @@ app.post('/api/testLink1', async (req, res) => {
       }
     };
 
-    console.log('link payload', oneLinkPayload)
-    // ✅ Step 4: Call 1LINK IBFT API
-    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', oneLinkPayload, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-        'X-IBM-Client-Id': '361dd796eddf6a5ba9b3295409e2b10e'
+    console.log('link payload', oneLinkPayload);
+
+    const ibftResponse = await axios.post(
+      'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry',
+      oneLinkPayload,
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+          'X-IBM-Client-Id': '361dd796eddf6a5ba9b3295409e2b10e',
+          'Accept': '*/*',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Connection': 'keep-alive',
+          'User-Agent': 'PostmanRuntime/7.45.0'
+          // 'Cookie': '_cf_bm=rXX7dYq6.9qPAQJBmFYETvuSDH3CYzZJjFcQwOuH1i...' // Optional
+        }
       }
-    });
+    );
+
 
     console.log('1LINK Response headers:', ibftResponse.headers);
     console.log('1LINK Response:', ibftResponse.data);
