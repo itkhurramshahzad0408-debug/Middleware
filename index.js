@@ -78,10 +78,10 @@ const app = express();
 app.use(bodyParser.json());
 
 // Replace with actual 1LINK credentials
-const CLIENT_ID = '361dd796eddf6a5ba9b3295409e2b10e';
-const CLIENT_SECRET = 'fe4c4d977afce1285ae7e1537836116c';
+const CLIENT_ID = '96e753e193f8dd58ac86807c60299a11';
+const CLIENT_SECRET = '101e673862bcba10a747d7dff697ce87';
 const TOKEN_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/oauth2/token';
-const RASST_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link';
+// const RASST_URL = 'https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link';
 
 // Step 1: API endpoint for NetSuite
 app.post('/api/testLink1', async (req, res) => {
@@ -111,7 +111,7 @@ debugger;
 
     console.log('link payload', oneLinkPayload);
     // Step 4: Call 1LINK IBFT API
-    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/1Link/statusInquiry', oneLinkPayload, {
+    const ibftResponse = await axios.post('https://sandboxapi.1link.net.pk/uat-1link/sandbox/funds-transfer-rest-service/path-1', oneLinkPayload, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
